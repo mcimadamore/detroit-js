@@ -57,6 +57,17 @@ static void jsObjectCall(const FunctionCallbackInfo<Value>& info) {
     // get total arguments passed to the call
     int length = info.Length();
 
+    if (!info.IsConstructCall() && length == 2 && info[0]->IsInt32() && info[1]->IsInt32() &&
+            jni.IsInstanceOf(jsobject, jsFunctionIntBinaryOperatorClass)) {
+        jint left = info[0]->Int32Value(scope.context).FromJust();
+        jint right = info[1]->Int32Value(scope.context).FromJust();
+        jint result = jni.CallIntMethod(jsobject, jsFunctionIntBinaryOperatorApplyAsIntMethodID, left, right);
+        if (!scope.checkAndRethrowV8Exception()) {
+            info.GetReturnValue().Set(scope.integer(result));
+        }
+        return;
+    }
+
     jobjectArray args = jni.NewObjectArray(length, objectClass, nullptr);
     if (scope.checkAndRethrowV8Exception()) return;
 

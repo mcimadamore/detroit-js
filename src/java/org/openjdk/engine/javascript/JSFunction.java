@@ -31,6 +31,7 @@ import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntBinaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -134,6 +135,17 @@ public interface JSFunction extends JSObject {
     }
 
     /**
+     * Create a new JSFunction wrapping the given primitive binary operator.
+     *
+     * @param operator primitive operator that is wrapped
+     * @return a new JSFunction
+     */
+    public static JSFunction apply(IntBinaryOperator operator) {
+        Objects.requireNonNull(operator);
+        return new JSIntBinaryOperatorFunction(operator);
+    }
+
+    /**
      * Create a new JSFunction wrapping the given Function object.
      *
      * @param func Function that is wrapped.
@@ -200,4 +212,5 @@ public interface JSFunction extends JSObject {
             }
         };
     }
+
 }

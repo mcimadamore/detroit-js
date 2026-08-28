@@ -147,6 +147,8 @@ jmethodID jsObjectGetIndexedPropertiesMethodID = nullptr;
 jclass jsFunctionClass = nullptr;
 jmethodID jsFunctionCallMethodID = nullptr;
 jmethodID jsFunctionNewObjectMethodID = nullptr;
+jclass jsFunctionIntBinaryOperatorClass = nullptr;
+jmethodID jsFunctionIntBinaryOperatorApplyAsIntMethodID = nullptr;
 jclass runnableClass = nullptr;
 jmethodID runnableRunMethodID = nullptr;
 jclass illegalArgumentExceptionClass = nullptr;
@@ -319,6 +321,9 @@ void initJVMV8Classes(JNIEnv* env) {
     jsFunctionCallMethodID = jni.GetMethodID(jsFunctionClass, "call", "(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;");
     jsFunctionNewObjectMethodID = jni.GetMethodID(jsFunctionClass, "newObject", "([Ljava/lang/Object;)Ljava/lang/Object;");
 
+    jsFunctionIntBinaryOperatorClass = (jclass)jni.NewGlobalRef(jni.FindClass(V8_PACKAGE_PREFIX "JSIntBinaryOperatorFunction"));
+    jsFunctionIntBinaryOperatorApplyAsIntMethodID = jni.GetMethodID(jsFunctionIntBinaryOperatorClass, "applyAsInt", "(II)I");
+
     runnableClass = (jclass)jni.NewGlobalRef(jni.FindClass("java/lang/Runnable"));
     runnableRunMethodID = jni.GetMethodID(runnableClass, "run", "()V");
 
@@ -389,6 +394,7 @@ void termJVMV8Classes(JNIEnv* env) {
     jni.DeleteGlobalRef(v8GlobalFunctionsClass);
     jni.DeleteGlobalRef(jsObjectClass);
     jni.DeleteGlobalRef(jsFunctionClass);
+    jni.DeleteGlobalRef(jsFunctionIntBinaryOperatorClass);
     jni.DeleteGlobalRef(runnableClass);
     jni.DeleteGlobalRef(illegalArgumentExceptionClass);
     jni.DeleteGlobalRef(stackTraceElementClass);

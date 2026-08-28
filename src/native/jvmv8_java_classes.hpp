@@ -135,6 +135,8 @@ extern jmethodID jsObjectGetIndexedPropertiesMethodID;
 extern jclass jsFunctionClass;
 extern jmethodID jsFunctionCallMethodID;
 extern jmethodID jsFunctionNewObjectMethodID;
+extern jclass jsFunctionIntBinaryOperatorClass;
+extern jmethodID jsFunctionIntBinaryOperatorApplyAsIntMethodID;
 extern jclass runnableClass;
 extern jmethodID runnableRunMethodID;
 extern jclass illegalArgumentExceptionClass;
