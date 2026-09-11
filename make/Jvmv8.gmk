@@ -223,7 +223,7 @@ $(JVMV8_V8_MONOLITH_RLIB): $(V8_MONOLITH_LIB_RLIB_DEPS)
 	$(MV) $@.tmp $@
 endif
 
-$(JVMV8_LIB): $(JVMV8_GEN_INCLUDE_DIR)/org_openjdk_engine_javascript_internal_V8.h $(JVMV8_NATIVE_ALL_FILES) $(V8_MONOLITH_LIB) $(JVMV8_V8_MONOLITH_RLIB)
+$(JVMV8_LIB): $(TOPDIR)/make/Jvmv8.gmk $(JVMV8_GEN_INCLUDE_DIR)/org_openjdk_engine_javascript_internal_V8.h $(JVMV8_NATIVE_ALL_FILES) $(V8_MONOLITH_LIB) $(JVMV8_V8_MONOLITH_RLIB)
 	$(MKDIR) -p $(@D)
 	$(V8_CXX) -I$(JVMV8_GEN_INCLUDE_DIR) $(CXXFLAGS) $(JVMV8_NATIVE_SRC_FILES) $(JVMV8_LINKFLAGS) -o $@.tmp
 ifeq ($(TARGET_OS), macos)
