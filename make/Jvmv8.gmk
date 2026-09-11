@@ -52,7 +52,7 @@ JAVA_HOME_INCLUDES := $(addprefix -I,$(JAVA_HOME_INCLUDE_DIRS))
 
 JVMV8_DOCS_MARKER := $(MAKE_SUPPORT_DIR)/jvmv8.javadoc.marker
 
-CXXFLAGS := -shared -fPIC -fpermissive -std=c++20
+CXXFLAGS := -shared -fPIC -fpermissive -std=c++20 -O3
 
 ifeq ($(DEBUG_LEVEL), debug)
     CXXFLAGS += -g
@@ -270,4 +270,3 @@ javadoc: $(JVMV8_DOCS_MARKER)
 TARGETS += javadoc
 
 .PHONY: $(TARGETS)
-
